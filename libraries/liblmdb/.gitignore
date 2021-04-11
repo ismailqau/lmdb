@@ -21,3 +21,5 @@ core.*
 valgrind.*
 man/
 html/
+.vscode
+mdb_drop
