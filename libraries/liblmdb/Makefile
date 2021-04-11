@@ -18,16 +18,16 @@
 # There may be other macros in mdb.c of interest. You should
 # read mdb.c before changing any of them.
 #
-CC	= gcc
-AR	= ar
+# CC	= gcc
+# AR	= ar
 W	= -W -Wall -Wno-unused-parameter -Wbad-function-cast -Wuninitialized
-THREADS = -pthread
+# THREADS = -pthread
 OPT = -O2 -g
 CFLAGS	= $(THREADS) $(OPT) $(W) $(XCFLAGS)
 LDLIBS	= 
 SOLIBS	= 
-SOEXT	= .so
-prefix	= /usr/local
+# SOEXT	= .so
+prefix	= $(PREFIX)
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)/bin
 libdir = $(exec_prefix)/lib
@@ -38,18 +38,16 @@ mandir = $(datarootdir)/man
 ########################################################################
 
 IHDRS	= lmdb.h
-ILIBS	= liblmdb.a liblmdb$(SOEXT)
+ILIBS	= liblmdb.a
 IPROGS	= mdb_stat mdb_copy mdb_dump mdb_load mdb_drop
 IDOCS	= mdb_stat.1 mdb_copy.1 mdb_dump.1 mdb_load.1 mdb_drop.1
 PROGS	= $(IPROGS) mtest mtest2 mtest3 mtest4 mtest5
 all:	$(ILIBS) $(PROGS)
 
-install: $(ILIBS) $(IPROGS) $(IHDRS)
-	mkdir -p $(DESTDIR)$(bindir)
+install: $(ILIBS) $(IHDRS)
 	mkdir -p $(DESTDIR)$(libdir)
 	mkdir -p $(DESTDIR)$(includedir)
 	mkdir -p $(DESTDIR)$(mandir)/man1
-	for f in $(IPROGS); do cp $$f $(DESTDIR)$(bindir); done
 	for f in $(ILIBS); do cp $$f $(DESTDIR)$(libdir); done
 	for f in $(IHDRS); do cp $$f $(DESTDIR)$(includedir); done
 	for f in $(IDOCS); do cp $$f $(DESTDIR)$(mandir)/man1; done
